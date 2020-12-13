@@ -6,11 +6,12 @@ class Gui():
 	def __init__(self):
 		self.askName()
 		self.root = Tk()
+		self.root.title("Kingdoms")
 		self.root.geometry("400x200")
 		self.labels=[]
 		for i in range(5):
 			for j in range(6):
-					self.labels.append(Label(self.root,text="00"))
+					self.labels.append(Label(self.root,text="+0"))
 					self.labels[-1].grid(row=i,column=j)
 	
 		self.labels.append(Label(self.root,text="selected board: None"))
@@ -30,6 +31,7 @@ class Gui():
 
 	def askName(self):
 		askname=Tk()
+		askname.title("user name")
 		askname.geometry("400x110")
 		Label(askname,text="please input plater1's name").grid(row=0)
 		name1=Entry(askname)
@@ -55,9 +57,22 @@ class Gui():
 		else:
 			message=self.board.chooseBuilding(level)
 		if message!=None:
-			tkinter.messagebox.showinfo("error",tmessage)
+			tkinter.messagebox.showinfo("error",message)
 		else:
 			self.labels[-2]['text']="selected board: "+self.board.players[self.board.t].selectedBoard.toString()
+			if self.board.players[self.board.t].selectedBoard.isV==False:
+				if self.board.players[self.board.t].selectedBoard.owner==self.board.players[0]:
+					self.labels[-2]["fg"]="DarkGreen"
+				else:
+					self.labels[-2]["fg"]="Orange"
+			elif abs(self.board.players[self.board.t].selectedBoard.value)<=6:
+				if(self.board.players[self.board.t].selectedBoard.value>0):
+					self.labels[-2]["fg"]="Blue"
+				else:
+					self.labels[-2]["fg"]="FireBrick"
+			else:
+				self.labels[-2]["fg"]="Pink"
+
 			self.button1['state']=DISABLED
 			self.button2['state']=DISABLED
 			self.button3['state']=NORMAL
@@ -65,7 +80,10 @@ class Gui():
 
 	def selectBuilding(self):
 		c=Tk()
+		c.title("Select the level")
 		c.geometry("200x100")
+		self.button1['state']=DISABLED
+		self.button2['state']=DISABLED
 		for i in self.board.playerBuildings[self.board.t]:
 			if i[1]!=0:
 				Button(c,text="level "+str(i[0].level)+",number left: "+str(i[1]),command=lambda i=i:[self.chooseS(level=i[0].level),c.destroy()]).grid(column=1)
@@ -76,6 +94,7 @@ class Gui():
 
 	def selectB(self):
 		s=Tk()
+		s.title("select the area")
 		s.geometry("200x200")
 		for i in range(5):
 			for j in range(6):
@@ -87,13 +106,14 @@ class Gui():
 
 
 	def putCard(self,x,y):
+		self.button3['state']=DISABLED
 		if self.board.players[self.board.t].selectedBoard==None:
 			tkinter.messagebox.showinfo("error","you need to select a board first")
-		elif self.labels[x*6+y]['text']!="00":
+		elif self.labels[x*6+y]['text']!="+0":
 			tkinter.messagebox.showinfo("error","you need to select an empty area")
 		else:
 			self.board.putBoard(x,y)
-			if self.board.playboard[x][y].toString()[0]=="B":
+			if self.board.playboard[x][y].isV==False:
 				if self.board.playboard[x][y].owner==self.board.players[0]:
 					self.labels[x*6+y]["fg"]="DarkGreen"
 				else:
@@ -104,18 +124,25 @@ class Gui():
 				else:
 					self.labels[x*6+y]["fg"]="FireBrick"
 			else:
-				self.labels[x*6+y]["fg"]="Black"
+				self.labels[x*6+y]["fg"]="Pink"
 
 			self.labels[x*6+y]["text"]=self.board.playboard[x][y].toString()
 
 			self.labels[-2]['text']="selected board: None"
+			self.labels[-2]['fg']="Black"
 			self.labels[-1]['text']="Player: "+self.board.players[self.board.t].name
 			self.button1['state']=NORMAL
 			self.button2['state']=NORMAL
-			self.button3['state']=DISABLED
 			self.root.update()
-
-
+			if self.board.ifFinished():
+				self.button1['state']=DISABLED
+				self.button2['state']=DISABLED
+				self.root.update()
+				self.board.checkScore()
+				tkinter.messagebox.showinfo("final result",self.board.players[0].name+" : "+str(self.board.players[0].score)+"\n"+
+											self.board.players[1].name+" : "+str(self.board.players[1].score))
+				self.button1['state']=DISABLED
+				self.button2['state']=DISABLED
 
 
 

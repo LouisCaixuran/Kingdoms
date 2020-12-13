@@ -6,14 +6,17 @@ class Player:
 
 class Building:
 	def __init__(self,level,owner):
+		self.isV=False
 		self.level=level
 		self.owner=owner
+		self.value=0
 
 	def toString(self):
 		return "B "+str(self.level)
 
 class ValueBoard:
 	def __init__(self,value):
+		self.isV=True
 		self.value=value
 		self.type="p" if value>0 else "n"
 		if value==7:
