@@ -82,8 +82,6 @@ class Gui():
 		c=Tk()
 		c.title("Select the level")
 		c.geometry("200x100")
-		self.button1['state']=DISABLED
-		self.button2['state']=DISABLED
 		for i in self.board.playerBuildings[self.board.t]:
 			if i[1]!=0:
 				Button(c,text="level "+str(i[0].level)+",number left: "+str(i[1]),command=lambda i=i:[self.chooseS(level=i[0].level),c.destroy()]).grid(column=1)
