@@ -21,13 +21,14 @@ class Board():
 	def chooseBuilding(self,level):
 		if self.playerBuildings[self.t][level-1][1]>0:
 			self.players[self.t].selectedBoard=self.playerBuildings[self.t][level-1][0]
-			self.playerBuildings[self.t][level-1][1]-=1
 		else:
 			return "no building with that level left"
 
 
 
 	def putBoard(self,x,y):
+		if self.players[self.t].selectedBoard.isV==False:
+			self.playerBuildings[self.t][self.players[self.t].selectedBoard.level-1][1]-=1
 		self.playboard[x][y]=self.players[self.t].selectedBoard
 		self.players[self.t].selectedBoard=None
 		self.t=0 if self.t==1 else 1
