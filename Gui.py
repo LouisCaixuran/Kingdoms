@@ -141,8 +141,7 @@ class Gui():
 				self.board.checkScore()
 				tkinter.messagebox.showinfo("final result",self.board.players[0].name+" : "+str(self.board.players[0].score)+"\n"+
 											self.board.players[1].name+" : "+str(self.board.players[1].score))
-				self.button1['state']=DISABLED
-				self.button2['state']=DISABLED
+				
 
 
 

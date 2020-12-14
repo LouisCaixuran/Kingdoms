@@ -56,14 +56,14 @@ class Board():
 		self.colScore=[0 for i in range(6)]
 		self.playboard=[[None for i in range(6)]for j in range(5)]
 
-	def showBoard(self):
-		for i in self.playboard:
-			for j in i:
-				if j==None:
-					print(" ",end=",")
-				else:
-					print(j.toString(),end=",")
-			print()
+	#def showBoard(self):
+	#	for i in self.playboard:
+	#		for j in i:
+	#			if j==None:
+	#				print(" ",end=",")
+	#			else:
+	#				print(j.toString(),end=",")
+	#		print()
 
 	def checkScore(self):
 		row=[]
