@@ -75,22 +75,22 @@ class Board():
 				if self.playboard[i][j].value==10:
 					try:
 						if self.playboard[i-1][j].isV==False:
-							self.playboard[i-1][j].level+=1
+							self.playboard[i-1][j]=Building(self.playboard[i-1][j].level+1,self.playboard[i-1][j].owner)
 					except Exception as e:
 						pass
 					try:
 						if self.playboard[i+1][j].isV==False:
-							self.playboard[i+1][j].level+=1
+							self.playboard[i+1][j]=Building(self.playboard[i+1][j].level+1,self.playboard[i+1][j].owner)
 					except Exception as e:
 						pass
 					try:
 						if self.playboard[i][j-1].isV==False:
-							self.playboard[i][j-1].level+=1
+							self.playboard[i][j-1]=Building(self.playboard[i][j-1].level+1,self.playboard[i][j-1].owner)
 					except Exception as e:
 						pass
 					try:
 						if self.playboard[i][j+1].isV==False:
-							self.playboard[i][j+1].level+=1
+							self.playboard[i][j+1]=Building(self.playboard[i][j+1].level+1,self.playboard[i][j+1].owner)
 					except Exception as e:
 						pass
 					self.playboard[i][j].value=0
