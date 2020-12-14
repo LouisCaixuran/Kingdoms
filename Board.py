@@ -149,11 +149,11 @@ class Board():
 			for j in i:
 				if isinstance(j,int):
 					score+=j
-					print(j,end="+")
+			#		print(j,end="+")
 				else:
 					l[self.players.index(j.owner)]+=j.level
-			print("="+str(score),end=",")
-			print(l)
+			#print("="+str(score),end=",")
+			#print(l)
 
 			self.players[0].score+=l[0]*score
 			self.players[1].score+=l[1]*score
