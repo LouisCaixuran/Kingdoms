@@ -2,12 +2,14 @@ from Player import *
 import random
 
 class Board():
-	def __init__(self,player1,player2):
-		self.players=[player1,player2]
-		p1Building=[[Building(1,player1),4],[Building(2,player1),3],[Building(3,player1),2],[Building(4,player1),1]]
-		p2Building=[[Building(1,player2),4],[Building(2,player2),3],[Building(3,player2),2],[Building(4,player2),1]]
-		self.playerBuildings=[p1Building,p2Building]
-		self.initGame()
+	def __init__(self,player1,player2,initsit=None):
+		if initsit==None:
+			self.players=[player1,player2]
+			p1Building=[[Building(1,player1),4],[Building(2,player1),3],[Building(3,player1),2],[Building(4,player1),1]]
+			p2Building=[[Building(1,player2),4],[Building(2,player2),3],[Building(3,player2),2],[Building(4,player2),1]]
+			self.playerBuildings=[p1Building,p2Building]
+			self.initGame()
+
 
 	def randomSelect(self):
 		if self.boards:
@@ -160,5 +162,6 @@ class Board():
 			self.players[1].score+=l[1]*score
 
 
+	#def toString(self):
 
 
